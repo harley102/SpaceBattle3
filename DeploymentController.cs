@@ -158,9 +158,9 @@ static class DeploymentController
     }
 
     /// <summary>
-    ///     ''' Gets the ship that the mouse is currently over in the selection panel.
-    ///     ''' </summary>
-    ///     ''' <returns>The ship selected or none</returns>
+    ///    Gets the ship that the mouse is currently over in the selection panel.
+    ///    </summary>
+    ///    <returns>The ship selected or none</returns>
     private static ShipName GetShipMouseIsOver()
     {
         foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
