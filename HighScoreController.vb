@@ -1,189 +1,207 @@
-Imports System.IO
-Imports SwinGameSDK
+using System;
+using System.Collections.Generic;
+using System.IO;
+using SwinGameSDK;
 
-''' <summary>
-''' Controls displaying and collecting high score data.
-''' </summary>
-''' <remarks>
-''' Data is saved to a file.
-''' </remarks>
-Module HighScoreController
-    Private Const NAME_WIDTH As Integer = 3
-    Private Const SCORES_LEFT As Integer = 490
+/// <summary>
 
-    ''' <summary>
-    ''' The score structure is used to keep the name and
-    ''' score of the top players together.
-    ''' </summary>
-    Private Structure Score : Implements IComparable
-        Public Name As String
-        Public Value As Integer
+/// ''' Controls displaying and collecting high score data.
 
-        ''' <summary>
-        ''' Allows scores to be compared to facilitate sorting
-        ''' </summary>
-        ''' <param name="obj">the object to compare to</param>
-        ''' <returns>a value that indicates the sort order</returns>
-        Public Function CompareTo(ByVal obj As Object) As Integer Implements System.IComparable.CompareTo
-            If TypeOf obj Is Score Then
-                Dim other As Score = CType(obj, Score)
+/// ''' </summary>
 
-                Return other.Value - Me.Value
-            Else
-                Return 0
-            End If
-        End Function
-    End Structure
+/// ''' <remarks>
 
-    Private _Scores As New List(Of Score)
+/// ''' Data is saved to a file.
 
-    ''' <summary>
-    ''' Loads the scores from the highscores text file.
-    ''' </summary>
-    ''' <remarks>
-    ''' The format is
-    ''' # of scores
-    ''' NNNSSS
-    ''' 
-    ''' Where NNN is the name and SSS is the score
-    ''' </remarks>
-    Private Sub LoadScores()
-        Dim filename As String
-        filename = SwinGame.PathToResource("highscores.txt")
+/// ''' </remarks>
+static class HighScoreController
+{
+    private const static int NAME_WIDTH = 3;
+    private const static int SCORES_LEFT = 490;
 
-        Dim input As StreamReader
-        input = New StreamReader(filename)
+    /// <summary>
+    ///     ''' The score structure is used to keep the name and
+    ///     ''' score of the top players together.
+    ///     ''' </summary>
+    private struct Score : IComparable
+    {
+        public string Name;
+        public int Value;
 
-        'Read in the # of scores
-        Dim numScores As Integer
-        numScores = Convert.ToInt32(input.ReadLine())
+        /// <summary>
+        ///         ''' Allows scores to be compared to facilitate sorting
+        ///         ''' </summary>
+        ///         ''' <param name="obj">the object to compare to</param>
+        ///         ''' <returns>a value that indicates the sort order</returns>
+        public int CompareTo(object obj)
+        {
+            if (obj is Score)
+            {
+                Score other = (Score)obj;
 
-        _Scores.Clear()
+                return other.Value - this.Value;
+            }
+            else
+                return 0;
+        }
+    }
 
-        Dim i as Integer
+    private static List<Score> _Scores = new List<Score>();
 
-        For i = 1 To numScores
-            Dim s As Score
-            Dim line As String
+    /// <summary>
+    ///     ''' Loads the scores from the highscores text file.
+    ///     ''' </summary>
+    ///     ''' <remarks>
+    ///     ''' The format is
+    ///     ''' # of scores
+    ///     ''' NNNSSS
+    ///     ''' 
+    ///     ''' Where NNN is the name and SSS is the score
+    ///     ''' </remarks>
+    private static void LoadScores()
+    {
+        string filename;
+        filename = SwinGame.PathToResource("highscores.txt");
 
-            line = input.ReadLine()
+        StreamReader input;
+        input = new StreamReader(filename);
 
-            s.Name = line.Substring(0, NAME_WIDTH)
-            s.Value = Convert.ToInt32(line.Substring(NAME_WIDTH))
-            _Scores.Add(s)
-        Next
-        input.Close()
-    End Sub
+        // Read in the # of scores
+        int numScores;
+        numScores = Convert.ToInt32(input.ReadLine());
 
-    ''' <summary>
-    ''' Saves the scores back to the highscores text file.
-    ''' </summary>
-    ''' <remarks>
-    ''' The format is
-    ''' # of scores
-    ''' NNNSSS
-    ''' 
-    ''' Where NNN is the name and SSS is the score
-    ''' </remarks>
-    Private Sub SaveScores()
-        Dim filename As String
-        filename = SwinGame.PathToResource("highscores.txt")
+        _Scores.Clear();
 
-        Dim output As StreamWriter
-        output = New StreamWriter(filename)
+        int i;
 
-        output.WriteLine(_Scores.Count)
+        for (i = 1; i <= numScores; i++)
+        {
+            Score s;
+            string line;
 
-        For Each s As Score In _Scores
-            output.WriteLine(s.Name & s.Value)
-        Next
+            line = input.ReadLine();
 
-        output.Close()
-    End Sub
+            s.Name = line.Substring(0, NAME_WIDTH);
+            s.Value = Convert.ToInt32(line.Substring(NAME_WIDTH));
+            _Scores.Add(s);
+        }
+        input.Close();
+    }
 
-    ''' <summary>
-    ''' Draws the high scores to the screen.
-    ''' </summary>
-    Public Sub DrawHighScores()
-        Const SCORES_HEADING As Integer = 40
-        Const SCORES_TOP As Integer = 80
-        Const SCORE_GAP As Integer = 30
+    /// <summary>
+    ///     ''' Saves the scores back to the highscores text file.
+    ///     ''' </summary>
+    ///     ''' <remarks>
+    ///     ''' The format is
+    ///     ''' # of scores
+    ///     ''' NNNSSS
+    ///     ''' 
+    ///     ''' Where NNN is the name and SSS is the score
+    ///     ''' </remarks>
+    private static void SaveScores()
+    {
+        string filename;
+        filename = SwinGame.PathToResource("highscores.txt");
 
-        If _Scores.Count = 0 Then LoadScores()
+        StreamWriter output;
+        output = new StreamWriter(filename);
 
-        SwinGame.DrawText("   High Scores   ", Color.White, GameFont("Courier"), SCORES_LEFT, SCORES_HEADING)
+        output.WriteLine(_Scores.Count);
 
-        'For all of the scores
-        Dim i as Integer
-For i  = 0 To _Scores.Count - 1
-            Dim s As Score
+        foreach (Score s in _Scores)
+            output.WriteLine(s.Name + s.Value);
 
-            s = _Scores.Item(i)
+        output.Close();
+    }
 
-            'for scores 1 - 9 use 01 - 09
-            If i < 9 Then
-                SwinGame.DrawText(" " & (i + 1) & ":   " & s.Name & "   " & s.Value, Color.White, GameFont("Courier"), SCORES_LEFT, SCORES_TOP + i * SCORE_GAP)
-            Else
-                SwinGame.DrawText(i + 1 & ":   " & s.Name & "   " & s.Value, Color.White, GameFont("Courier"), SCORES_LEFT, SCORES_TOP + i * SCORE_GAP)
-            End If
-        Next
-    End Sub
+    /// <summary>
+    ///     ''' Draws the high scores to the screen.
+    ///     ''' </summary>
+    public static void DrawHighScores()
+    {
+        const int SCORES_HEADING = 40;
+        const int SCORES_TOP = 80;
+        const int SCORE_GAP = 30;
 
-    ''' <summary>
-    ''' Handles the user input during the top score screen.
-    ''' </summary>
-    ''' <remarks></remarks>
-    Public Sub HandleHighScoreInput()
-        If SwinGame.MouseClicked(MouseButton.LeftButton) OrElse SwinGame.KeyTyped(KeyCode.VK_ESCAPE) OrElse SwinGame.KeyTyped(KeyCode.VK_RETURN) Then
-            EndCurrentState()
-        End If
-    End Sub
+        if (_Scores.Count == 0)
+            LoadScores();
 
-    ''' <summary>
-    ''' Read the user's name for their highsSwinGame.
-    ''' </summary>
-    ''' <param name="value">the player's sSwinGame.</param>
-    ''' <remarks>
-    ''' This verifies if the score is a highsSwinGame.
-    ''' </remarks>
-    Public Sub ReadHighScore(ByVal value As Integer)
-        Const ENTRY_TOP As Integer = 500
+        SwinGame.DrawText("   High Scores   ", Color.White, GameFont("Courier"), SCORES_LEFT, SCORES_HEADING);
 
-        If _Scores.Count = 0 Then LoadScores()
+        // For all of the scores
+        int i;
+        for (i = 0; i <= _Scores.Count - 1; i++)
+        {
+            Score s;
 
-        'is it a high score
-        If value > _Scores.Item(_Scores.Count - 1).Value Then
-            Dim s As New Score
-            s.Value = value
+            s = _Scores.Item[i];
 
-            AddNewState(GameState.ViewingHighScores)
+            // for scores 1 - 9 use 01 - 09
+            if (i < 9)
+                SwinGame.DrawText(" " + (i + 1) + ":   " + s.Name + "   " + s.Value, Color.White, GameFont("Courier"), SCORES_LEFT, SCORES_TOP + i * SCORE_GAP);
+            else
+                SwinGame.DrawText(i + 1 + ":   " + s.Name + "   " + s.Value, Color.White, GameFont("Courier"), SCORES_LEFT, SCORES_TOP + i * SCORE_GAP);
+        }
+    }
 
-            Dim x as Integer
-            x = SCORES_LEFT + SwinGame.TextWidth(GameFont("Courier"), "Name: ")
+    /// <summary>
+    ///     ''' Handles the user input during the top score screen.
+    ///     ''' </summary>
+    ///     ''' <remarks></remarks>
+    public static void HandleHighScoreInput()
+    {
+        if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.VK_ESCAPE) || SwinGame.KeyTyped(KeyCode.VK_RETURN))
+            EndCurrentState();
+    }
 
-            SwinGame.StartReadingText(Color.White, NAME_WIDTH, GameFont("Courier"), x, ENTRY_TOP)
+    /// <summary>
+    ///     ''' Read the user's name for their highsSwinGame.
+    ///     ''' </summary>
+    ///     ''' <param name="value">the player's sSwinGame.</param>
+    ///     ''' <remarks>
+    ///     ''' This verifies if the score is a highsSwinGame.
+    ///     ''' </remarks>
+    public static void ReadHighScore(int value)
+    {
+        const int ENTRY_TOP = 500;
 
-            'Read the text from the user
-            While SwinGame.ReadingText()
-                SwinGame.ProcessEvents()
+        if (_Scores.Count == 0)
+            LoadScores();
 
-                DrawBackground()
-                DrawHighScores()
-                SwinGame.DrawText("Name: ", Color.White, GameFont("Courier"), SCORES_LEFT, ENTRY_TOP)
-                SwinGame.RefreshScreen()
-            End While
+        // is it a high score
+        if (value > _Scores.Item[_Scores.Count - 1].Value)
+        {
+            Score s = new Score();
+            s.Value = value;
 
-            s.Name = SwinGame.TextReadAsASCII()
+            AddNewState(GameState.ViewingHighScores);
 
-            If s.Name.Length < 3 Then
-                s.Name = s.Name & New String(CChar(" "), 3 - s.Name.Length)
-            End If
+            int x;
+            x = SCORES_LEFT + SwinGame.TextWidth(GameFont("Courier"), "Name: ");
 
-            _Scores.RemoveAt(_Scores.Count - 1)
-            _Scores.Add(s)
-            _Scores.Sort()
+            SwinGame.StartReadingText(Color.White, NAME_WIDTH, GameFont("Courier"), x, ENTRY_TOP);
 
-            EndCurrentState()
-        End If
-    End Sub
-End Module
+            // Read the text from the user
+            while (SwinGame.ReadingText())
+            {
+                SwinGame.ProcessEvents();
+
+                DrawBackground();
+                DrawHighScores();
+                SwinGame.DrawText("Name: ", Color.White, GameFont("Courier"), SCORES_LEFT, ENTRY_TOP);
+                SwinGame.RefreshScreen();
+            }
+
+            s.Name = SwinGame.TextReadAsASCII();
+
+            if (s.Name.Length < 3)
+                s.Name = s.Name + new string(System.Convert.ToChar(" "), 3 - s.Name.Length);
+
+            _Scores.RemoveAt(_Scores.Count - 1);
+            _Scores.Add(s);
+            _Scores.Sort();
+
+            EndCurrentState();
+        }
+    }
+}
