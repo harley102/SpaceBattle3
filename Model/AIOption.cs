@@ -1,17 +1,20 @@
-public enum AIOption
+namespace SpaceBattle
 {
-    /// <summary>
-    ///     ''' Easy, total random shooting
-    ///     ''' </summary>
-    Easy,
+    public enum AIOption
+    {
+        /// <summary>
+        ///     ''' Easy, total random shooting
+        ///     ''' </summary>
+        Easy,
 
-    /// <summary>
-    ///     ''' Medium, marks squares around hits
-    ///     ''' </summary>
-    Medium,
+        /// <summary>
+        ///     ''' Medium, marks squares around hits
+        ///     ''' </summary>
+        Medium,
 
-    /// <summary>
-    ///     ''' As medium, but removes shots once it misses
-    ///     ''' </summary>
-    Hard
+        /// <summary>
+        ///     ''' As medium, but removes shots once it misses
+        ///     ''' </summary>
+        Hard
+    }
 }
