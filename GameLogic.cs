@@ -1,26 +1,31 @@
-static class GameLogic
+using SwinGameSDK;
+
+namespace SpaceBattle
 {
-    public static void Main()
+    public class GameLogic
     {
-        // Opens a new Graphics Window
-        SwinGame.OpenGraphicsWindow("Battle Ships", 800, 600);
-
-        // Load Resources
-        LoadResources();
-
-        SwinGame.PlayMusic(GameMusic("Background"));
-
-        // Game Loop
-        do
+        public static void Main()
         {
-            HandleUserInput();
-            DrawScreen();
+            // Opens a new Graphics Window
+            SwinGame.OpenGraphicsWindow("Battle Ships", 800, 600);
+
+            // Load Resources
+            GameResources.Instance.LoadResources();
+
+            SwinGame.PlayMusic(GameResources.Instance.GameMusic("Background"));
+
+            // Game Loop
+            do
+            {
+                GameController.Instance.HandleUserInput();
+                GameController.Instance.DrawScreen();
+            }
+            while (!SwinGame.WindowCloseRequested() == true | GameController.Instance.CurrentState == GameState.Quitting);
+
+            SwinGame.StopMusic();
+
+            // Free Resources and Close Audio, to end the program.
+            GameResources.Instance.FreeResources();
         }
-        while (!SwinGame.WindowCloseRequested() == true | CurrentState == GameState.Quitting);
-
-        SwinGame.StopMusic();
-
-        // Free Resources and Close Audio, to end the program.
-        FreeResources();
     }
 }
