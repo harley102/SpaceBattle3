@@ -1,11 +1,11 @@
-// '' <summary>
-// '' The SeaGrid is the grid upon which the ships are deployed.
-// '' </summary>
-// '' <remarks>
-// '' The grid is viewable via the ISeaGrid interface as a read only
-// '' grid. This can be used in conjuncture with the SeaGridAdapter to 
-// '' mask the position of the ships.
-// '' </remarks>
+// <summary>
+// The SeaGrid is the grid upon which the ships are deployed.
+// </summary>
+// <remarks>
+// The grid is viewable via the ISeaGrid interface as a read only
+// grid. This can be used in conjuncture with the SeaGridAdapter to 
+// mask the position of the ships.
+// </remarks>
 public class SeaGrid : ISeaGrid {
     
     private const int _WIDTH = 10;
@@ -16,16 +16,16 @@ public class SeaGrid : ISeaGrid {
     
     private int _ShipsKilled = 0;
     
-    // '' <summary>
-    // '' The sea grid has changed and should be redrawn.
-    // '' </summary>
+    // <summary>
+    // The sea grid has changed and should be redrawn.
+    // </summary>
     public event EventHandler Changed;
     
-    // '' <summary>
-    // '' The width of the sea grid.
-    // '' </summary>
-    // '' <value>The width of the sea grid.</value>
-    // '' <returns>The width of the sea grid.</returns>
+    // <summary>
+    // The width of the sea grid.
+    // </summary>
+    // <value>The width of the sea grid.</value>
+    // <returns>The width of the sea grid.</returns>
     public int Width {
         get {
             return _WIDTH;
@@ -51,9 +51,9 @@ Endclass Unknown {
 }
 
     
-    // '' <summary>
-    // '' AllDeployed checks if all the ships are deployed
-    // '' </summary>
+    // <summary>
+    // AllDeployed checks if all the ships are deployed
+    // </summary>
     public bool AllDeployed {
         get {
             foreach (Ship s in _Ships.Values) {
@@ -82,26 +82,26 @@ Endclass Unknown {
         _Ships = ships;
     }
     
-    // '' <summary>
-    // '' MoveShips allows for ships to be placed on the seagrid
-    // '' </summary>
-    // '' <param name="row">the row selected</param>
-    // '' <param name="col">the column selected</param>
-    // '' <param name="ship">the ship selected</param>
-    // '' <param name="direction">the direction the ship is going</param>
+    // <summary>
+    // MoveShips allows for ships to be placed on the seagrid
+    // </summary>
+    // <param name="row">the row selected</param>
+    // <param name="col">the column selected</param>
+    // <param name="ship">the ship selected</param>
+    // <param name="direction">the direction the ship is going</param>
     public void MoveShip(int row, int col, ShipName ship, Direction direction) {
         Ship newShip = _Ships[ship];
         newShip.Remove();
         AddShip(row, col, direction, newShip);
     }
     
-    // '' <summary>
-    // '' AddShip add a ship to the SeaGrid
-    // '' </summary>
-    // '' <param name="row">row coordinate</param>
-    // '' <param name="col">col coordinate</param>
-    // '' <param name="direction">direction of ship</param>
-    // '' <param name="newShip">the ship</param>
+    // <summary>
+    // AddShip add a ship to the SeaGrid
+    // </summary>
+    // <param name="row">row coordinate</param>
+    // <param name="col">col coordinate</param>
+    // <param name="direction">direction of ship</param>
+    // <param name="newShip">the ship</param>
     private void AddShip(int row, int col, Direction direction, Ship newShip) {
         try {
             int size = newShip.Size;
@@ -147,13 +147,13 @@ Endclass Unknown {
         
     }
     
-    // '' <summary>
-    // '' HitTile hits a tile at a row/col, and whatever tile has been hit, a
-    // '' result will be displayed.
-    // '' </summary>
-    // '' <param name="row">the row at which is being shot</param>
-    // '' <param name="col">the cloumn at which is being shot</param>
-    // '' <returns>An attackresult (hit, miss, sunk, shotalready)</returns>
+    // <summary>
+    // HitTile hits a tile at a row/col, and whatever tile has been hit, a
+    // result will be displayed.
+    // </summary>
+    // <param name="row">the row at which is being shot</param>
+    // <param name="col">the cloumn at which is being shot</param>
+    // <returns>An attackresult (hit, miss, sunk, shotalready)</returns>
     public AttackResult HitTile(int row, int col) {
         try {
             // tile is already hit
