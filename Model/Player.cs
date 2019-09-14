@@ -1,7 +1,7 @@
 /// <summary>
-/// Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
-/// all ships are deployed and if all ships are detroyed. A Player can also attach.
-/// </summary>
+/// ''' Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
+/// ''' all ships are deployed and if all ships are detroyed. A Player can also attach.
+/// ''' </summary>
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,8 +22,8 @@ namespace SpaceBattle
     {
         protected static Random _Random = new Random();
 
-        private static Dictionary<ShipName, Ship> _Ships = new Dictionary<ShipName, Ship>();
-        private SeaGrid _playerGrid = new SeaGrid(_Ships);
+        private Dictionary<ShipName, Ship> _Ships = new Dictionary<ShipName, Ship>();
+        private SeaGrid _playerGrid;
         private ISeaGrid _enemyGrid;
         protected BattleShipsGame _game;
 
@@ -63,7 +63,7 @@ namespace SpaceBattle
         public Player(BattleShipsGame controller)
         {
             _game = controller;
-
+            _playerGrid = new SeaGrid(_Ships);
             // for each ship add the ships name so the seagrid knows about them
             foreach (ShipName name in Enum.GetValues(typeof(ShipName)))
             {
