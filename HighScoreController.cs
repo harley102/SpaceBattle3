@@ -42,10 +42,10 @@ namespace SpaceBattle
             public int Value;
 
             /// <summary>
-            ///     Allows scores to be compared to facilitate sorting
-            ///     </summary>
-            ///     <param name="obj">the object to compare to</param>
-            ///     <returns>a value that indicates the sort order</returns>
+            /// Allows scores to be compared to facilitate sorting
+            /// </summary>
+            /// <param name="obj">the object to compare to</param>
+            /// <returns>a value that indicates the sort order</returns>
             public int CompareTo(object obj)
             {
                 if (obj is Score)

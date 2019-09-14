@@ -33,10 +33,10 @@ namespace SpaceBattle
             private readonly Location _Source;
 
             /// <summary>
-            ///     The target shot at
-            ///     </summary>
-            ///     <value>The target shot at</value>
-            ///     <returns>The target shot at</returns>
+            /// The target shot at
+            /// </summary>
+            /// <value>The target shot at</value>
+            /// <returns>The target shot at</returns>
             public Location ShotAt
             {
                 get
@@ -46,10 +46,10 @@ namespace SpaceBattle
             }
 
             /// <summary>
-            ///     The source that added this location as a target.
-            ///     </summary>
-            ///     <value>The source that added this location as a target.</value>
-            ///     <returns>The source that added this location as a target.</returns>
+            /// The source that added this location as a target.
+            /// </summary>
+            /// <value>The source that added this location as a target.</value>
+            /// <returns>The source that added this location as a target.</returns>
             public Location Source
             {
                 get
@@ -65,9 +65,9 @@ namespace SpaceBattle
             }
 
             /// <summary>
-            ///     If source shot and shootat shot are on the same row then 
-            ///     give a boolean true
-            ///     </summary>
+            /// If source shot and shootat shot are on the same row then 
+            /// give a boolean true
+            /// </summary>
             public bool SameRow
             {
                 get
@@ -77,9 +77,9 @@ namespace SpaceBattle
             }
 
             /// <summary>
-            ///     If source shot and shootat shot are on the same column then 
-            ///     give a boolean true 
-            ///     </summary>
+            /// If source shot and shootat shot are on the same column then 
+            /// give a boolean true 
+            /// </summary>
             public bool SameColumn
             {
                 get
@@ -97,18 +97,18 @@ namespace SpaceBattle
         private enum AIStates
         {
             /// <summary>
-            ///     The AI is searching for its next target
-            ///     </summary>
+            /// The AI is searching for its next target
+            /// </summary>
             Searching,
 
             /// <summary>
-            ///     The AI is trying to target a ship
-            ///     </summary>
+            /// The AI is trying to target a ship
+            /// </summary>
             TargetingShip,
 
             /// <summary>
-            ///     The AI is locked onto a ship
-            ///     </summary>
+            /// The AI is locked onto a ship
+            /// </summary>
             HittingShip
         }
 
@@ -254,7 +254,6 @@ namespace SpaceBattle
                     // Source is nnothing if the ship was originally hit in
                     // the middle. This then searched forward, rather than
                     // backward through the list of targets
-                    Console.WriteLine("1");
                     if (source == null)
                     {
                         source = current.ShotAt;
@@ -267,14 +266,12 @@ namespace SpaceBattle
                 // find the source in _LastHit
                 foreach (Target t in _LastHit)
                 {
-                    Console.WriteLine("2");
                     if ((!foundOriginal && t.ShotAt == source) || (foundOriginal & t.Source == source))
                     {
                         current = t;
                         _LastHit.Remove(t);
                         break;
                     }
-                    Console.WriteLine("3");
                 }
 
                 RemoveShotsAround(current.ShotAt);
