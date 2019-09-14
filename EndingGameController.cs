@@ -13,51 +13,57 @@ using Microsoft.VisualBasic;
 using SwinGameSDK;
 
 /// <summary>
+/// The EndingGameController is responsible for managing the interactions at the end
+/// of a game.
+/// </summary>
 
-/// ''' The EndingGameController is responsible for managing the interactions at the end
-
-/// ''' of a game.
-
-/// ''' </summary>
 namespace SpaceBattle
 {
     static class EndingGameController
     {
 
         /// <summary>
-        ///     ''' Draw the end of the game screen, shows the win/lose state
-        ///     ''' </summary>
+        /// Draw the end of the game screen, shows the win/lose state
+        /// </summary>
         public static void DrawEndOfGame()
         {
-            Rectangle toDraw = new Rectangle();
-            string whatShouldIPrint;
 
-            UtilityFunctions.DrawField(GameController.Instance.ComputerPlayer.PlayerGrid, GameController.Instance.ComputerPlayer, true);
-            UtilityFunctions.DrawSmallField(GameController.Instance.HumanPlayer.PlayerGrid, GameController.Instance.HumanPlayer);
+            /// <summary>
+            /// Draw the end of the game screen, shows the win/lose state
+            /// </summary>
+            public static void DrawEndOfGame()
+            {
+                Rectangle toDraw = new Rectangle();
+                string whatShouldIPrint;
 
-            toDraw.X = 0;
-            toDraw.Y = 250;
-            toDraw.Width = SwinGame.ScreenWidth();
-            toDraw.Height = SwinGame.ScreenHeight();
+                UtilityFunctions.DrawField(GameController.Instance.ComputerPlayer.PlayerGrid, GameController.Instance.ComputerPlayer, true);
+                UtilityFunctions.DrawSmallField(GameController.Instance.HumanPlayer.PlayerGrid, GameController.Instance.HumanPlayer);
 
-            if (GameController.Instance.HumanPlayer.IsDestroyed)
-                whatShouldIPrint = "YOU LOSE!";
-            else
-                whatShouldIPrint = "-- WINNER --";
+                toDraw.X = 0;
+                toDraw.Y = 250;
+                toDraw.Width = SwinGame.ScreenWidth();
+                toDraw.Height = SwinGame.ScreenHeight();
 
-            SwinGame.DrawText(whatShouldIPrint, Color.White, Color.Transparent, GameResources.Instance.GameFont("ArialLarge"), FontAlignment.AlignCenter, toDraw); // orignialy draw text lines
-        }
+                if (GameController.Instance.HumanPlayer.IsDestroyed)
+                    whatShouldIPrint = "YOU LOSE!";
+                else
+                    whatShouldIPrint = "-- WINNER --";
 
+                SwinGame.DrawText(whatShouldIPrint, Color.White, Color.Transparent, GameResources.Instance.GameFont("ArialLarge"), FontAlignment.AlignCenter, toDraw); // orignialy draw text lines
+            }
         /// <summary>
-        ///     ''' Handle the input during the end of the game. Any interaction
-        ///     ''' will result in it reading in the highsSwinGame.
-        ///     ''' </summary>
+        /// Handle the input during the end of the game. Any interaction
+        /// will result in it reading in the highsSwinGame.
+        /// </summary>
         public static void HandleEndOfGameInput()
         {
-            if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.ReturnKey) || SwinGame.KeyTyped(KeyCode.EscapeKey))
+            if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.VK_RETURN) || SwinGame.KeyTyped(KeyCode.VK_ESCAPE))
             {
-                HighScoreController.Instance.ReadHighScore(GameController.Instance.HumanPlayer.Score);
-                GameController.Instance.EndCurrentState();
+                if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.ReturnKey) || SwinGame.KeyTyped(KeyCode.EscapeKey))
+                {
+                    HighScoreController.Instance.ReadHighScore(GameController.Instance.HumanPlayer.Score);
+                    GameController.Instance.EndCurrentState();
+                }
             }
         }
     }

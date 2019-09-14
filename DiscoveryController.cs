@@ -13,13 +13,19 @@ using Microsoft.VisualBasic;
 using SwinGameSDK;
 
 /// <summary>
-
-/// ''' The battle phase is handled by the DiscoveryController.
-
-/// ''' </summary>
-namespace SpaceBattle
+/// The battle phase is handled by the DiscoveryController.
+/// </summary>
+static class DiscoveryController
 {
-    class DiscoveryController
+
+    /// <summary>
+    /// Handles input during the discovery phase of the game.
+    /// </summary>
+    /// <remarks>
+    /// Escape opens the game menu. Clicking the mouse will
+    /// attack a location.
+    /// </remarks>
+    public static void HandleDiscoveryInput()
     {
 
         /// <summary>
@@ -34,16 +40,12 @@ namespace SpaceBattle
             if (SwinGame.KeyTyped(KeyCode.EscapeKey))
                 GameController.Instance.AddNewState(GameState.ViewingGameMenu);
 
-            if (SwinGame.MouseClicked(MouseButton.LeftButton))
-                DoAttack();
-        }
-
-        /// <summary>
-        ///     ''' Attack the location that the mouse if over.
-        ///     ''' </summary>
-        private static void DoAttack()
-        {
-            Point2D mouse;
+    /// <summary>
+    /// Attack the location that the mouse if over.
+    /// </summary>
+    private static void DoAttack()
+    {
+        Point2D mouse;
 
             mouse = SwinGame.MousePosition();
 
@@ -59,15 +61,15 @@ namespace SpaceBattle
             }
         }
 
-        /// <summary>
-        ///     ''' Draws the game during the attack phase.
-        ///     ''' </summary>s
-        public static void DrawDiscovery()
-        {
-            const int SCORES_LEFT = 172;
-            const int SHOTS_TOP = 157;
-            const int HITS_TOP = 206;
-            const int SPLASH_TOP = 256;
+    /// <summary>
+    /// Draws the game during the attack phase.
+    /// </summary>
+    public static void DrawDiscovery()
+    {
+        const int SCORES_LEFT = 172;
+        const int SHOTS_TOP = 157;
+        const int HITS_TOP = 206;
+        const int SPLASH_TOP = 256;
 
             if ((SwinGame.KeyDown(KeyCode.LeftShiftKey) | SwinGame.KeyDown(KeyCode.RightShiftKey)) & SwinGame.KeyDown(KeyCode.CKey))
                 UtilityFunctions.DrawField(GameController.Instance.HumanPlayer.EnemyGrid, GameController.Instance.ComputerPlayer, true);

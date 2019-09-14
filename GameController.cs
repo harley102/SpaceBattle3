@@ -13,15 +13,13 @@ using Microsoft.VisualBasic;
 using SwinGameSDK;
 
 /// <summary>
-
-/// ''' The GameController is responsible for controlling the game,
-
-/// ''' managing user input, and displaying the current state of the
-
-/// ''' game.
-
-/// ''' </summary>
+/// The GameController is responsible for controlling the game,
+/// managing user input, and displaying the current state of the
+/// game.
+/// </summary>
 namespace SpaceBattle
+
+public static class GameController
 {
     public class GameController
     {
@@ -37,6 +35,15 @@ namespace SpaceBattle
         }
 
         public static GameController Instance
+    /// <summary>
+    /// Returns the current state of the game, indicating which screen is
+    /// currently being used
+    /// </summary>
+    /// <value>The current state</value>
+    /// <returns>The current state</returns>
+    public static GameState CurrentState
+    {
+        get
         {
             get
             {
@@ -56,13 +63,16 @@ namespace SpaceBattle
 
         private AIOption _aiSetting;
 
+        
         /// <summary>
-        ///     ''' Returns the current state of the game, indicating which screen is
-        ///     ''' currently being used
-        ///     ''' </summary>
-        ///     ''' <value>The current state</value>
-        ///     ''' <returns>The current state</returns>
+        /// Returns the human player.
+        /// </summary>
+        /// <value>the human player</value>
+        /// <returns>the human player</returns>
         public GameState CurrentState
+    public static Player HumanPlayer
+    {
+        get
         {
             get
             {
@@ -70,12 +80,15 @@ namespace SpaceBattle
             }
         }
 
-        /// <summary>
-        ///     ''' Returns the human player.
-        ///     ''' </summary>
-        ///     ''' <value>the human player</value>
-        ///     ''' <returns>the human player</returns>
-        public Player HumanPlayer
+    /// <summary>
+    /// Returns the computer player.
+    /// </summary>
+    /// <value>the computer player</value>
+    /// <returns>the conputer player</returns>
+    public Player HumanPlayer
+    public static Player ComputerPlayer
+    {
+        get
         {
             get
             {
@@ -84,10 +97,10 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Returns the computer player.
-        ///     ''' </summary>
-        ///     ''' <value>the computer player</value>
-        ///     ''' <returns>the conputer player</returns>
+        /// Returns the computer player.
+        /// </summary>
+        /// <value>the computer player</value>
+        /// <returns>the conputer player</returns>
         public Player ComputerPlayer
         {
             get
@@ -97,11 +110,11 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Starts a new game.
-        ///     ''' </summary>
-        ///     ''' <remarks>
-        ///     ''' Creates an AI player based upon the _aiSetting.
-        ///     ''' </remarks>
+        /// Starts a new game.
+        /// </summary>
+        /// <remarks>
+        /// Creates an AI player based upon the _aiSetting.
+        /// </remarks>
         public void StartGame()
         {
             if (_theGame != null)
@@ -133,18 +146,19 @@ namespace SpaceBattle
             }
 
             _human = new Player(_theGame);
-
+            
             // AddHandler _human.PlayerGrid.Changed, AddressOf GridChanged
             _ai.PlayerGrid.Changed += GridChanged;
             _theGame.AttackCompleted += AttackCompleted;
+    
 
             AddNewState(GameState.Deploying);
         }
 
         /// <summary>
-        ///     ''' Stops listening to the old game once a new game is started
-        ///     ''' </summary>
-
+        /// Stops listening to the old game once a new game is started
+        /// </summary>
+        
         private void EndGame()
         {
             // RemoveHandler _human.PlayerGrid.Changed, AddressOf GridChanged
@@ -153,12 +167,12 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Listens to the game grids for any changes and redraws the screen
-        ///     ''' when the grids change
-        ///     ''' </summary>
-        ///     ''' <param name="sender">the grid that changed</param>
-        ///     ''' <param name="args">not used</param>
-        private void GridChanged(object sender, EventArgs args)
+        /// Listens to the game grids for any changes and redraws the screen
+        /// when the grids change
+        /// </summary>
+        /// <param name="sender">the grid that changed</param>
+        /// <param name="args">not used</param>
+        private static void GridChanged(object sender, EventArgs args)
         {
             DrawScreen();
             SwinGame.RefreshScreen();
@@ -185,13 +199,13 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Listens for attacks to be completed.
-        ///     ''' </summary>
-        ///     ''' <param name="sender">the game</param>
-        ///     ''' <param name="result">the result of the attack</param>
-        ///     ''' <remarks>
-        ///     ''' Displays a message, plays sound and redraws the screen
-        ///     ''' </remarks>
+        /// Listens for attacks to be completed.
+        /// </summary>
+        /// <param name="sender">the game</param>
+        /// <param name="result">the result of the attack</param>
+        /// <remarks>
+        /// Displays a message, plays sound and redraws the screen
+        /// </remarks>
         private void AttackCompleted(object sender, AttackResult result)
         {
             bool isHuman;
@@ -249,60 +263,62 @@ namespace SpaceBattle
             }
         }
 
-        /// <summary>
-        ///     ''' Completes the deployment phase of the game and
-        ///     ''' switches to the battle mode (Discovering state)
-        ///     ''' </summary>
-        ///     ''' <remarks>
-        ///     ''' This adds the players to the game before switching
-        ///     ''' state.
-        ///     ''' </remarks>
-        public void EndDeployment()
-        {
-            // deploy the players
-            _theGame.AddDeployedPlayer(_human);
-            _theGame.AddDeployedPlayer(_ai);
+    /// <summary>
+    /// Completes the deployment phase of the game and
+    /// switches to the battle mode (Discovering state)
+    /// </summary>
+    /// <remarks>
+    /// This adds the players to the game before switching
+    /// state.
+    /// </remarks>
+    public void EndDeployment()
+    {
+        // deploy the players
+        _theGame.AddDeployedPlayer(_human);
+        _theGame.AddDeployedPlayer(_ai);
 
             SwitchState(GameState.Discovering);
         }
 
-        /// <summary>
-        ///     ''' Gets the player to attack the indicated row and column.
-        ///     ''' </summary>
-        ///     ''' <param name="row">the row to attack</param>
-        ///     ''' <param name="col">the column to attack</param>
-        ///     ''' <remarks>
-        ///     ''' Checks the attack result once the attack is complete
-        ///     ''' </remarks>
-        public void Attack(int row, int col)
-        {
-            AttackResult result;
-            result = _theGame.Shoot(row, col);
-            CheckAttackResult(result);
-        }
+    /// <summary>
+    /// Gets the player to attack the indicated row and column.
+    /// </summary>
+    /// <param name="row">the row to attack</param>
+    /// <param name="col">the column to attack</param>
+    /// <remarks>
+    /// Checks the attack result once the attack is complete
+    /// </remarks>
+    public static void Attack(int row, int col)
+    {
+        AttackResult result;
+        result = _theGame.Shoot(row, col);
+        CheckAttackResult(result);
+    }
 
-        /// <summary>
-        ///     ''' Gets the AI to attack.
-        ///     ''' </summary>
-        ///     ''' <remarks>
-        ///     ''' Checks the attack result once the attack is complete.
-        ///     ''' </remarks>
-        private void AIAttack()
-        {
-            AttackResult result;
-            result = _theGame.Player.Attack();
-            CheckAttackResult(result);
-        }
+    /// <summary>
+    /// Gets the AI to attack.
+    /// </summary>
+    /// <remarks>
+    /// Checks the attack result once the attack is complete.
+    /// </remarks>
+    private static void AIAttack()
+    {
+        AttackResult result;
+        result = _theGame.Player.Attack();
+        CheckAttackResult(result);
+    }
 
-        /// <summary>
-        ///     ''' Checks the results of the attack and switches to
-        ///     ''' Ending the Game if the result was game over.
-        ///     ''' </summary>
-        ///     ''' <param name="result">the result of the last
-        ///     ''' attack</param>
-        ///     ''' <remarks>Gets the AI to attack if the result switched
-        ///     ''' to the AI player.</remarks>
-        private void CheckAttackResult(AttackResult result)
+    /// <summary>
+    /// Checks the results of the attack and switches to
+    /// Ending the Game if the result was game over.
+    /// </summary>
+    /// <param name="result">the result of the last
+    /// attack</param>
+    /// <remarks>Gets the AI to attack if the result switched
+    /// to the AI player.</remarks>
+    private static void CheckAttackResult(AttackResult result)
+    {
+        switch (result.Value)
         {
             switch (result.Value)
             {
@@ -320,19 +336,20 @@ namespace SpaceBattle
                     }
             }
         }
+    }
 
-        /// <summary>
-        ///     ''' Handles the user SwinGame.
-        ///     ''' </summary>
-        ///     ''' <remarks>
-        ///     ''' Reads key and mouse input and converts these into
-        ///     ''' actions for the game to perform. The actions
-        ///     ''' performed depend upon the state of the game.
-        ///     ''' </remarks>
-        public void HandleUserInput()
-        {
-            // Read incoming input events
-            SwinGame.ProcessEvents();
+    /// <summary>
+    /// Handles the user SwinGame.
+    /// </summary>
+    /// <remarks>
+    /// Reads key and mouse input and converts these into
+    /// actions for the game to perform. The actions
+    /// performed depend upon the state of the game.
+    /// </remarks>
+    public static void HandleUserInput()
+    {
+        // Read incoming input events
+        SwinGame.ProcessEvents();
 
             switch (CurrentState)
             {
@@ -383,11 +400,11 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Draws the current state of the game to the screen.
-        ///     ''' </summary>
-        ///     ''' <remarks>
-        ///     ''' What is drawn depends upon the state of the game.
-        ///     ''' </remarks>
+        /// Draws the current state of the game to the screen.
+        /// </summary>
+        /// <remarks>
+        /// What is drawn depends upon the state of the game.
+        /// </remarks>
         public void DrawScreen()
         {
             UtilityFunctions.DrawBackground();
@@ -443,10 +460,10 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Move the game to a new state. The current state is maintained
-        ///     ''' so that it can be returned to.
-        ///     ''' </summary>
-        ///     ''' <param name="state">the new game state</param>
+        /// Move the game to a new state. The current state is maintained
+        /// so that it can be returned to.
+        /// </summary>
+        /// <param name="state">the new game state</param>
         public void AddNewState(GameState state)
         {
             _state.Push(state);
@@ -454,9 +471,9 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' End the current state and add in the new state.
-        ///     ''' </summary>
-        ///     ''' <param name="newState">the new state of the game</param>
+        /// End the current state and add in the new state.
+        /// </summary>
+        /// <param name="newState">the new state of the game</param>
         public void SwitchState(GameState newState)
         {
             EndCurrentState();
@@ -464,17 +481,17 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Ends the current state, returning to the prior state
-        ///     ''' </summary>
+        /// Ends the current state, returning to the prior state
+        /// </summary>
         public void EndCurrentState()
         {
             _state.Pop();
         }
 
         /// <summary>
-        ///     ''' Sets the difficulty for the next level of the game.
-        ///     ''' </summary>
-        ///     ''' <param name="setting">the new difficulty level</param>
+        /// Sets the difficulty for the next level of the game.
+        /// </summary>
+        /// <param name="setting">the new difficulty level</param>
         public void SetDifficulty(AIOption setting)
         {
             _aiSetting = setting;

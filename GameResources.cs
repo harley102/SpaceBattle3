@@ -84,10 +84,10 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Gets a Font Loaded in the Resources
-        ///     ''' </summary>
-        ///     ''' <param name="font">Name of Font</param>
-        ///     ''' <returns>The Font Loaded with this Name</returns>
+        /// Gets a Font Loaded in the Resources
+        /// </summary>
+        /// <param name="font">Name of Font</param>
+        /// <returns>The Font Loaded with this Name</returns>
 
         public Font GameFont(string font)
         {
@@ -95,10 +95,10 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Gets an Image loaded in the Resources
-        ///     ''' </summary>
-        ///     ''' <param name="image">Name of image</param>
-        ///     ''' <returns>The image loaded with this name</returns>
+        /// Gets an Image loaded in the Resources
+        /// </summary>
+        /// <param name="image">Name of image</param>
+        /// <returns>The image loaded with this name</returns>
 
         public Bitmap GameImage(string image)
         {
@@ -106,10 +106,10 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Gets an sound loaded in the Resources
-        ///     ''' </summary>
-        ///     ''' <param name="sound">Name of sound</param>
-        ///     ''' <returns>The sound with this name</returns>
+        /// Gets an sound loaded in the Resources
+        /// </summary>
+        /// <param name="sound">Name of sound</param>
+        /// <returns>The sound with this name</returns>
 
         public SoundEffect GameSound(string sound)
         {
@@ -117,10 +117,10 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Gets the music loaded in the Resources
-        ///     ''' </summary>
-        ///     ''' <param name="music">Name of music</param>
-        ///     ''' <returns>The music with this name</returns>
+        /// Gets the music loaded in the Resources
+        /// </summary>
+        /// <param name="music">Name of music</param>
+        /// <returns>The music with this name</returns>
 
         public Music GameMusic(string music)
         {
@@ -140,9 +140,9 @@ namespace SpaceBattle
         private SoundEffect _StartSound;
 
         /// <summary>
-        ///     ''' The Resources Class stores all of the Games Media Resources, such as Images, Fonts
-        ///     ''' Sounds, Music.
-        ///     ''' </summary>
+        /// The Resources Class stores all of the Games Media Resources, such as Images, Fonts
+        /// Sounds, Music.
+        /// </summary>
 
         public void LoadResources()
         {

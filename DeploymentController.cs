@@ -13,14 +13,10 @@ using Microsoft.VisualBasic;
 using SwinGameSDK;
 
 /// <summary>
-
-/// ''' The DeploymentController controls the players actions
-
-/// ''' during the deployment phase.
-
-/// ''' </summary>
-
-namespace SpaceBattle
+/// The DeploymentController controls the players actions
+/// during the deployment phase.
+/// </summary>
+static class DeploymentController
 {
     public class DeploymentController
     {
@@ -58,6 +54,17 @@ namespace SpaceBattle
         private const int RANDOM_BUTTON_WIDTH = 51;
 
         private const int DIR_BUTTONS_WIDTH = 47;
+    /// <summary>
+    /// Handles user input for the Deployment phase of the game.
+    /// </summary>
+    /// <remarks>
+    /// Involves selecting the ships, deloying ships, changing the direction
+    /// of the ships to add, randomising deployment, end then ending deployment
+    /// </remarks>
+    public static void HandleDeploymentInput()
+    {
+        if (SwinGame.KeyTyped(KeyCode.VK_ESCAPE))
+            AddNewState(GameState.ViewingGameMenu);
 
         private const int TEXT_OFFSET = 5;
 
@@ -105,17 +112,17 @@ namespace SpaceBattle
             }
         }
 
-        /// <summary>
-        ///     ''' The user has clicked somewhere on the screen, check if its is a deployment and deploy
-        ///     ''' the current ship if that is the case.
-        ///     ''' </summary>
-        ///     ''' <remarks>
-        ///     ''' If the click is in the grid it deploys to the selected location
-        ///     ''' with the indicated direction
-        ///     ''' </remarks>
-        private void DoDeployClick()
-        {
-            Point2D mouse;
+    /// <summary>
+    /// The user has clicked somewhere on the screen, check if its is a deployment and deploy
+    /// the current ship if that is the case.
+    /// </summary>
+    /// <remarks>
+    /// If the click is in the grid it deploys to the selected location
+    /// with the indicated direction
+    /// </remarks>
+    private static void DoDeployClick()
+    {
+        Point2D mouse;
 
             mouse = SwinGame.MousePosition();
 
@@ -142,19 +149,23 @@ namespace SpaceBattle
             }
         }
 
-        /// <summary>
-        ///     ''' Draws the deployment screen showing the field and the ships
-        ///     ''' that the player can deploy.
-        ///     ''' </summary>
-        public void DrawDeployment()
-        {
-            UtilityFunctions.DrawField(GameController.Instance.HumanPlayer.PlayerGrid, GameController.Instance.HumanPlayer, true);
+    /// <summary>
+    /// Draws the deployment screen showing the field and the ships
+    /// that the player can deploy.
+    /// </summary>
+    public static void DrawDeployment()
+    {
+        DrawField(HumanPlayer.PlayerGrid, HumanPlayer, true);
 
-            // Draw the Left/Right and Up/Down buttons
-            if (_currentDirection == Direction.LeftRight)
-                SwinGame.DrawBitmap(GameResources.Instance.GameImage("LeftRightButton"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
-            else
-                SwinGame.DrawBitmap(GameResources.Instance.GameImage("UpDownButton"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
+        // Draw the Left/Right and Up/Down buttons
+        if (_currentDirection == Direction.LeftRight)
+            SwinGame.DrawBitmap(GameImage("LeftRightButton"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
+        // There is some missing commented code here after converted.
+        // There is some missing commented code here after converted.
+        else
+            SwinGame.DrawBitmap(GameImage("UpDownButton"), LEFT_RIGHT_BUTTON_LEFT, TOP_BUTTONS_TOP);
+        // There is some missing commented code here after converted.
+        // There is some missing commented code here after converted.
 
             // DrawShips
             foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
@@ -170,17 +181,34 @@ namespace SpaceBattle
 
             if (GameController.Instance.HumanPlayer.ReadyToDeploy)
                 SwinGame.DrawBitmap(GameResources.Instance.GameImage("PlayButton"), PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP);
+                if (sn == _selectedShip)
+                    SwinGame.DrawBitmap(GameImage("SelectedShip"), SHIPS_LEFT, SHIPS_TOP + i * SHIPS_HEIGHT);
+                // There is some missing commented code here after converted.
+                // There is some missing commented code here after converted.
+                // There is some missing commented code here after converted.
+            }
+        }
+        
+        // There is some missing commented code here after converted.
+        // There is some missing commented code here after converted.
+
+        if (HumanPlayer.ReadyToDeploy)
+            SwinGame.DrawBitmap(GameImage("PlayButton"), PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP);
+        // There is some missing commented code here after converted.
+        // There is some missing commented code here after converted.
 
             SwinGame.DrawBitmap(GameResources.Instance.GameImage("RandomButton"), RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP);
 
             UtilityFunctions.Instance.DrawMessage();
         }
 
-        /// <summary>
-        ///    Gets the ship that the mouse is currently over in the selection panel.
-        ///    </summary>
-        ///    <returns>The ship selected or none</returns>
-        private ShipName GetShipMouseIsOver()
+    /// <summary>
+    /// Gets the ship that the mouse is currently over in the selection panel.
+    /// </summary>
+    /// <returns>The ship selected or none</returns>
+    private static ShipName GetShipMouseIsOver()
+    {
+        foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
         {
             foreach (ShipName sn in Enum.GetValues(typeof(ShipName)))
             {

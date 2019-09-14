@@ -159,7 +159,7 @@ namespace SpaceBattle
                     dCol = 0;
                 }
 
-                // place ship's tiles in array and into ship object
+                /// place ship's tiles in array and into ship object
                 int i;
                 var loopTo = size - 1;
                 for (i = 0; i <= loopTo; i++)
@@ -198,17 +198,17 @@ namespace SpaceBattle
         {
             try
             {
-                // tile is already hit
+                /// tile is already hit
                 if (_GameTiles[row, col].Shot)
                     return new AttackResult(ResultOfAttack.ShotAlready, "have already attacked [" + col + "," + row + "]!", row, col);
 
                 _GameTiles[row, col].Shoot();
 
-                // there is no ship on the tile
+                /// there is no ship on the tile
                 if (_GameTiles[row, col].Ship == null)
                     return new AttackResult(ResultOfAttack.Miss, "missed", row, col);
 
-                // all ship's tiles have been destroyed
+                /// all ship's tiles have been destroyed
                 if (_GameTiles[row, col].Ship.IsDestroyed)
                 {
                     _GameTiles[row, col].Shot = true;
@@ -216,7 +216,7 @@ namespace SpaceBattle
                     return new AttackResult(ResultOfAttack.Destroyed, _GameTiles[row, col].Ship, "destroyed the enemy's", row, col);
                 }
 
-                // else hit but not destroyed
+                /// else hit but not destroyed
                 return new AttackResult(ResultOfAttack.Hit, "hit something!", row, col);
             }
             finally

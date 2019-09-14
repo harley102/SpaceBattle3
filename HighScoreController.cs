@@ -4,16 +4,11 @@ using System.IO;
 using SwinGameSDK;
 
 /// <summary>
-
-/// ''' Controls displaying and collecting high score data.
-
-/// ''' </summary>
-
-/// ''' <remarks>
-
-/// ''' Data is saved to a file.
-
-/// ''' </remarks>
+/// Controls displaying and collecting high score data.
+/// </summary>
+/// <remarks>
+/// Data is saved to a file.
+/// </remarks>
 namespace SpaceBattle
 {
     class HighScoreController
@@ -38,19 +33,19 @@ namespace SpaceBattle
         private const int SCORES_LEFT = 490;
 
         /// <summary>
-        ///     ''' The score structure is used to keep the name and
-        ///     ''' score of the top players together.
-        ///     ''' </summary>
+        /// The score structure is used to keep the name and
+        /// score of the top players together.
+        /// </summary>
         private struct Score : IComparable
         {
             public string Name;
             public int Value;
 
             /// <summary>
-            ///         ''' Allows scores to be compared to facilitate sorting
-            ///         ''' </summary>
-            ///         ''' <param name="obj">the object to compare to</param>
-            ///         ''' <returns>a value that indicates the sort order</returns>
+            /// Allows scores to be compared to facilitate sorting
+            /// </summary>
+            /// <param name="obj">the object to compare to</param>
+            /// <returns>a value that indicates the sort order</returns>
             public int CompareTo(object obj)
             {
                 if (obj is Score)
@@ -67,15 +62,15 @@ namespace SpaceBattle
         private List<Score> _Scores = new List<Score>();
 
         /// <summary>
-        ///     ''' Loads the scores from the highscores text file.
-        ///     ''' </summary>
-        ///     ''' <remarks>
-        ///     ''' The format is
-        ///     ''' # of scores
-        ///     ''' NNNSSS
-        ///     ''' 
-        ///     ''' Where NNN is the name and SSS is the score
-        ///     ''' </remarks>
+        /// Loads the scores from the highscores text file.
+        /// </summary>
+        /// <remarks>
+        /// The format is
+        /// # of scores
+        /// NNNSSS
+        /// 
+        /// Where NNN is the name and SSS is the score
+        /// </remarks>
         private void LoadScores()
         {
             string filename;
@@ -107,15 +102,15 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Saves the scores back to the highscores text file.
-        ///     ''' </summary>
-        ///     ''' <remarks>
-        ///     ''' The format is
-        ///     ''' # of scores
-        ///     ''' NNNSSS
-        ///     ''' 
-        ///     ''' Where NNN is the name and SSS is the score
-        ///     ''' </remarks>
+        /// Saves the scores back to the highscores text file.
+        /// </summary>
+        /// <remarks>
+        /// The format is
+        /// # of scores
+        /// NNNSSS
+        /// 
+        /// Where NNN is the name and SSS is the score
+        /// </remarks>
         private void SaveScores()
         {
             string filename;
@@ -133,8 +128,8 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Draws the high scores to the screen.
-        ///     ''' </summary>
+        /// Draws the high scores to the screen.
+        /// </summary>
         public void DrawHighScores()
         {
             const int SCORES_HEADING = 40;
@@ -163,9 +158,9 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Handles the user input during the top score screen.
-        ///     ''' </summary>
-        ///     ''' <remarks></remarks>
+        /// Handles the user input during the top score screen.
+        /// </summary>
+        /// <remarks></remarks>
         public static void HandleHighScoreInput()
         {
             if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.EscapeKey) || SwinGame.KeyTyped(KeyCode.ReturnKey))
@@ -173,12 +168,12 @@ namespace SpaceBattle
         }
 
         /// <summary>
-        ///     ''' Read the user's name for their highsSwinGame.
-        ///     ''' </summary>
-        ///     ''' <param name="value">the player's sSwinGame.</param>
-        ///     ''' <remarks>
-        ///     ''' This verifies if the score is a highsSwinGame.
-        ///     ''' </remarks>
+        /// Read the user's name for their highsSwinGame.
+        /// </summary>
+        /// <param name="value">the player's sSwinGame.</param>
+        /// <remarks>
+        /// This verifies if the score is a highsSwinGame.
+        /// </remarks>
         public void ReadHighScore(int value)
         {
             const int ENTRY_TOP = 500;
