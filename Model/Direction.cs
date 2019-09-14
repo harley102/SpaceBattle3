@@ -1,8 +1,5 @@
 namespace SpaceBattle
 {
-    /// <summary>
-    /// The direction the ship can be oriented.
-    /// </summary>
     public enum Direction
     {
         /// <summary>

@@ -22,21 +22,21 @@ namespace SpaceBattle
     public class BattleShipsGame
     {
 
-    /// <summary>
-    /// The attack delegate type is used to send notifications of the end of an
-    /// attack by a player or the AI.
-    /// </summary>
-    /// <param name="sender">the game sending the notification</param>
-    /// <param name="result">the result of the attack</param>
-    public delegate void AttackCompletedHandler(object sender, AttackResult result);
+        /// <summary>
+        /// The attack delegate type is used to send notifications of the end of an
+        /// attack by a player or the AI.
+        /// </summary>
+        /// <param name="sender">the game sending the notification</param>
+        /// <param name="result">the result of the attack</param>
+        public delegate void AttackCompletedHandler(object sender, AttackResult result);
 
-    /// <summary>
-    /// The AttackCompleted event is raised when an attack has completed.
-    /// </summary>
-    /// <remarks>
-    /// This is used by the UI to play sound effects etc.
-    /// </remarks>
-    public event AttackCompletedHandler AttackCompleted;
+        /// <summary>
+        /// The AttackCompleted event is raised when an attack has completed.
+        /// </summary>
+        /// <remarks>
+        /// This is used by the UI to play sound effects etc.
+        /// </remarks>
+        public event AttackCompletedHandler AttackCompleted;
 
         private Player[] _players = new Player[3];
         private int _playerIndex = 0;
@@ -73,27 +73,27 @@ namespace SpaceBattle
                 throw new ApplicationException("You cannot add another player, the game already has two players.");
         }
 
-    /// <summary>
-    /// Assigns each player the other's grid as the enemy grid. This allows each player
-    /// to examine the details visable on the other's sea grid.
-    /// </summary>
-    private void CompleteDeployment()
-    {
-        _players[0].Enemy = new SeaGridAdapter(_players[1].PlayerGrid);
-        _players[1].Enemy = new SeaGridAdapter(_players[0].PlayerGrid);
-    }
+        /// <summary>
+        /// Assigns each player the other's grid as the enemy grid. This allows each player
+        /// to examine the details visable on the other's sea grid.
+        /// </summary>
+        private void CompleteDeployment()
+        {
+            _players[0].Enemy = new SeaGridAdapter(_players[1].PlayerGrid);
+            _players[1].Enemy = new SeaGridAdapter(_players[0].PlayerGrid);
+        }
 
-    /// <summary>
-    /// Shoot will swap between players and check if a player has been killed.
-    /// It also allows the current player to hit on the enemygrid.
-    /// </summary>
-    /// <param name="row">the row fired upon</param>
-    /// <param name="col">the column fired upon</param>
-    /// <returns>The result of the attack</returns>
-    public AttackResult Shoot(int row, int col)
-    {
-        AttackResult newAttack;
-        int otherPlayer = (_playerIndex + 1) % 2;
+        /// <summary>
+        /// Shoot will swap between players and check if a player has been killed.
+        /// It also allows the current player to hit on the enemygrid.
+        /// </summary>
+        /// <param name="row">the row fired upon</param>
+        /// <param name="col">the column fired upon</param>
+        /// <returns>The result of the attack</returns>
+        public AttackResult Shoot(int row, int col)
+        {
+            AttackResult newAttack;
+            int otherPlayer = (_playerIndex + 1) % 2;
 
             newAttack = Player.Shoot(row, col);
 

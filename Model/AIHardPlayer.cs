@@ -254,6 +254,7 @@ namespace SpaceBattle
                     // Source is nnothing if the ship was originally hit in
                     // the middle. This then searched forward, rather than
                     // backward through the list of targets
+                    Console.WriteLine("1");
                     if (source == null)
                     {
                         source = current.ShotAt;
@@ -266,12 +267,14 @@ namespace SpaceBattle
                 // find the source in _LastHit
                 foreach (Target t in _LastHit)
                 {
+                    Console.WriteLine("2");
                     if ((!foundOriginal && t.ShotAt == source) || (foundOriginal & t.Source == source))
                     {
                         current = t;
                         _LastHit.Remove(t);
                         break;
                     }
+                    Console.WriteLine("3");
                 }
 
                 RemoveShotsAround(current.ShotAt);

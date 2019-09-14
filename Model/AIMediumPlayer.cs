@@ -66,7 +66,7 @@ namespace SpaceBattle
 
                     default:
                         {
-                            throw new ApplicationException("AI has gone in an imvalid state");
+                            throw new ApplicationException("AI has gone in an invalid state");
                             break;
                         }
                 }
