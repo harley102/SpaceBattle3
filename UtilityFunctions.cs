@@ -311,7 +311,7 @@ namespace SpaceBattle
 
         public void AddExplosion(int row, int col)
         {
-            AddAnimation(row, col, "Splash");
+            AddAnimation(row, col, "Explosion");
         }
 
         public void AddSplash(int row, int col)
