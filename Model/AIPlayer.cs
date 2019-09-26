@@ -83,14 +83,8 @@ namespace SpaceBattle
             /// <returns>true if location 1 and location 2 are at the same spot</returns>
             public static bool operator ==(Location @this, Location other)
             {
-                try
-                {
-                    return @this.Row == other.Row && @this.Column == other.Column;
-                }
-                catch(NullReferenceException)
-                {
-                    return false;
-                }
+                return !ReferenceEquals(@this, null) && !ReferenceEquals(other, null) && @this.Row == other.Row && @this.Column == other.Column;
+
             }
 
             /// <summary>
@@ -101,14 +95,8 @@ namespace SpaceBattle
             /// <returns>true if location 1 and location 2 are not at the same spot</returns>
             public static bool operator !=(Location @this, Location other)
             {
-                try
-                {
-                    return @this.Row != other.Row && @this.Column != other.Column;
-                }
-                catch (NullReferenceException)
-                {
-                    return true;
-                }
+                return ReferenceEquals(@this, null) || ReferenceEquals(other, null) || @this.Row != other.Row || @this.Column != other.Column;
+
             }
         }
 
@@ -161,17 +149,13 @@ namespace SpaceBattle
         /// </summary>
         private void Delay()
         {
-            int i;
-            for (i = 0; i <= 150; i++)
-            {
-                // Dont delay if window is closed
-                if (SwinGame.WindowCloseRequested())
-                    return;
+            // Dont delay if window is closed
+            if (SwinGame.WindowCloseRequested())
+                return;
 
-                SwinGame.Delay(5);
-                SwinGame.ProcessEvents();
-                SwinGame.RefreshScreen();
-            }
+            SwinGame.Delay(10);
+            SwinGame.ProcessEvents();
+            SwinGame.RefreshScreen();
         }
     }
 }
