@@ -329,7 +329,6 @@ namespace SpaceBattle
         {
             // Read incoming input events
             SwinGame.ProcessEvents();
-            Console.Write(CurrentState);
             switch (CurrentState)
             {
                 case GameState.ViewingMainMenu:
