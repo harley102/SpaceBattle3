@@ -285,8 +285,6 @@ namespace SpaceBattle
 
         private void NewMusic(string musicName, string filename)
         {
-            Console.WriteLine("Nice"+SwinGame.PathToResource(filename, ResourceKind.SoundResource));
-
             _Music.Add(musicName, Audio.LoadMusic(SwinGame.PathToResource(filename, ResourceKind.SoundResource)));
         }
 
@@ -305,7 +303,9 @@ namespace SpaceBattle
         private void FreeSounds()
         {
             foreach (SoundEffect obj in _Sounds.Values)
-                Audio.FreeSoundEffect(obj);
+            {
+                Audio.ReleaseSoundEffect(Audio.SoundEffectName(obj));
+            }
         }
 
         private void FreeMusic()
