@@ -47,7 +47,7 @@ namespace SpaceBattle
         public const int CELL_HEIGHT = 40;
         public const int CELL_GAP = 2;
 
-        public const int SHIP_GAP = 3;
+        public const int SHIP_GAP = 0;
 
         private static readonly Color SMALL_SEA = SwinGame.RGBAColor(6, 60, 94, 255);
         private static readonly Color SMALL_SHIP = Color.Gray;
