@@ -32,7 +32,7 @@ namespace SpaceBattle
             if (SwinGame.KeyTyped(KeyCode.EscapeKey))
                 GameController.Instance.AddNewState(GameState.ViewingGameMenu);
 
-            if (SwinGame.MouseClicked(MouseButton.LeftButton))
+            if (SwinGame.MouseDown(MouseButton.LeftButton))
                 DoAttack();
         }
 
