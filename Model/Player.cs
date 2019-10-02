@@ -139,7 +139,7 @@ namespace SpaceBattle
         /// The number of shots the player has made
         /// </summary>
         /// <value>shots taken</value>
-        /// <returns>teh number of shots taken</returns>
+        /// <returns>the number of shots taken</returns>
         public int Shots
         {
             get
@@ -233,7 +233,6 @@ namespace SpaceBattle
         /// <returns>the result of the attack</returns>
         internal AttackResult Shoot(int row, int col)
         {
-            _shots += 1;
             AttackResult result;
             result = EnemyGrid.HitTile(row, col);
 
@@ -242,12 +241,14 @@ namespace SpaceBattle
                 case ResultOfAttack.Destroyed:
                 case ResultOfAttack.Hit:
                     {
+                        _shots += 1;
                         _hits += 1;
                         break;
                     }
 
                 case ResultOfAttack.Miss:
                     {
+                        _shots += 1;
                         _misses += 1;
                         break;
                     }
