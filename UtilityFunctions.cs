@@ -60,8 +60,8 @@ namespace SpaceBattle
         private static readonly Color LARGE_HIT = SwinGame.RGBAColor(252, 2, 3, 255);
 
         private static readonly Color OUTLINE_COLOR = SwinGame.RGBAColor(5, 55, 88, 255);
-        private static readonly Color SHIP_FILL_COLOR = Color.Gray;
-        private static readonly Color SHIP_OUTLINE_COLOR = Color.White;
+        private static readonly Color SHIP_FILL_COLOR = SwinGame.RGBAColor(128, 128, 128, 10);
+        private static readonly Color SHIP_OUTLINE_COLOR = SwinGame.RGBAColor(255, 255, 255, 240);
         private static readonly Color MESSAGE_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
 
         public const int ANIMATION_CELLS = 7;
