@@ -203,7 +203,15 @@ namespace SpaceBattle
                 case ResultOfAttack.Destroyed:
                     {
                         PlayHitSequence(result.Row, result.Column, isHuman);
+                        Color flashColor;
+                        if (isHuman)
+                            flashColor = SwinGame.RGBAColor(0, 255, 0, 127);
+                        else
+                            flashColor = SwinGame.RGBAColor(255, 0, 0, 127); ;
                         Audio.PlaySoundEffect(GameResources.Instance.GameSound("Sink"));
+                        SwinGame.FillRectangle(flashColor, 0, 0, 800, 600);
+                        SwinGame.RefreshScreen();
+                        SwinGame.Delay(250);
                         break;
                     }
 
@@ -214,7 +222,7 @@ namespace SpaceBattle
 
                         while (Audio.SoundEffectPlaying(GameResources.Instance.GameSound("Sink")))
                         {
-                            SwinGame.Delay(10);
+                            //SwinGame.Delay(10);
                             SwinGame.RefreshScreen();
                         }
 
