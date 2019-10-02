@@ -306,7 +306,7 @@ namespace SpaceBattle
                     }
             }
 
-            SwinGame.DrawFramerate(675, 585);
+            SwinGame.DrawFramerate(620, 585);
         }
 
         public void AddExplosion(int row, int col)
