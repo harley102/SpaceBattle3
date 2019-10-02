@@ -157,23 +157,23 @@ namespace SpaceBattle
 
             ShowMessage("Loading fonts...", 0);
             LoadFonts();
-            SwinGame.Delay(100);
+            //SwinGame.Delay(100);
 
             ShowMessage("Loading images...", 1);
             LoadImages();
-            SwinGame.Delay(100);
+            //SwinGame.Delay(100);
 
             ShowMessage("Loading sounds...", 2);
             LoadSounds();
-            SwinGame.Delay(100);
+            //SwinGame.Delay(100);
 
             ShowMessage("Loading music...", 3);
             LoadMusic();
-            SwinGame.Delay(100);
+            //SwinGame.Delay(100);
 
-            SwinGame.Delay(100);
+            //SwinGame.Delay(100);
             ShowMessage("Game loaded...", 5);
-            SwinGame.Delay(100);
+            //SwinGame.Delay(100);
             EndLoadingScreen(width, height);
         }
 
@@ -191,7 +191,7 @@ namespace SpaceBattle
             _LoaderFull = SwinGame.LoadBitmap(SwinGame.PathToResource("loader_full.png", ResourceKind.BitmapResource));
             _LoaderEmpty = SwinGame.LoadBitmap(SwinGame.PathToResource("loader_empty.png", ResourceKind.BitmapResource));
 
-            PlaySwinGameIntro();
+            //PlaySwinGameIntro();
         }
 
         private void PlaySwinGameIntro()
@@ -199,18 +199,18 @@ namespace SpaceBattle
             const int ANI_CELL_COUNT = 11;
 
             Audio.PlaySoundEffect(_StartSound);
-            SwinGame.Delay(200);
+            //SwinGame.Delay(200);
 
             int i;
             for (i = 0; i <= ANI_CELL_COUNT - 1; i++)
             {
                 SwinGame.DrawBitmap(_Background, 0, 0);
-                SwinGame.Delay(20);
+                //SwinGame.Delay(20);
                 SwinGame.RefreshScreen();
                 SwinGame.ProcessEvents();
             }
 
-            SwinGame.Delay(1500);
+            //SwinGame.Delay(1500);
         }
 
         private void ShowMessage(string message, int number)
@@ -245,7 +245,7 @@ namespace SpaceBattle
         private void EndLoadingScreen(int width, int height)
         {
             SwinGame.ProcessEvents();
-            SwinGame.Delay(500);
+            //SwinGame.Delay(500);
             SwinGame.ClearScreen();
             SwinGame.RefreshScreen();
             SwinGame.FreeFont(_LoadingFont);
@@ -255,6 +255,7 @@ namespace SpaceBattle
             SwinGame.FreeBitmap(_LoaderFull);
             //SwinGame.FreeSoundEffect(_StartSound);
             //Audio.FreeSoundEffect
+            SwinGame.ReleaseSoundEffect(SwinGame.SoundEffectName(_StartSound));
             SwinGame.ChangeScreenSize(width, height);
         }
 

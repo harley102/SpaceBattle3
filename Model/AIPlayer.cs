@@ -153,7 +153,7 @@ namespace SpaceBattle
             if (SwinGame.WindowCloseRequested())
                 return;
 
-            SwinGame.Delay(10);
+            //SwinGame.Delay(10);
             SwinGame.ProcessEvents();
             SwinGame.RefreshScreen();
         }
