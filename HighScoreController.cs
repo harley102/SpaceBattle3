@@ -99,6 +99,7 @@ namespace SpaceBattle
                 _Scores.Add(s);
             }
             input.Close();
+            Console.WriteLine("Loaded");
         }
 
         /// <summary>
@@ -125,6 +126,7 @@ namespace SpaceBattle
                 output.WriteLine(s.Name + s.Value);
 
             output.Close();
+            Console.WriteLine("Saved");
         }
 
         /// <summary>
@@ -213,7 +215,7 @@ namespace SpaceBattle
                 _Scores.RemoveAt(_Scores.Count - 1);
                 _Scores.Add(s);
                 _Scores.Sort();
-
+                SaveScores();
                 GameController.Instance.EndCurrentState();
             }
         }
