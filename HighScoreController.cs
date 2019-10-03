@@ -138,7 +138,9 @@ namespace SpaceBattle
 
             if (_Scores.Count == 0)
                 LoadScores();
-
+            
+            SwinGame.DrawRectangle(SwinGame.RGBAColor(127, 127, 127, 175), 490, 40, 130, 345);
+            SwinGame.FillRectangle(SwinGame.RGBAColor(127,127,127,200), 490, 40, 130, 345);
             SwinGame.DrawText("   High Scores   ", Color.White, GameResources.Instance.GameFont("Courier"), SCORES_LEFT, SCORES_HEADING);
 
             // For all of the scores
