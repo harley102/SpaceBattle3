@@ -99,7 +99,6 @@ namespace SpaceBattle
                 _Scores.Add(s);
             }
             input.Close();
-            Console.WriteLine("Loaded");
         }
 
         /// <summary>
@@ -126,7 +125,6 @@ namespace SpaceBattle
                 output.WriteLine(s.Name + s.Value);
 
             output.Close();
-            Console.WriteLine("Saved");
         }
 
         /// <summary>
