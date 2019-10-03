@@ -211,7 +211,17 @@ namespace SpaceBattle
                         Audio.PlaySoundEffect(GameResources.Instance.GameSound("Sink"));
                         SwinGame.FillRectangle(flashColor, 0, 0, 800, 600);
                         SwinGame.RefreshScreen();
-                        SwinGame.Delay(250);
+                        SwinGame.Delay(150);
+
+                        UtilityFunctions.DrawBackground();
+                        DiscoveryController.DrawDiscovery();
+                        SwinGame.RefreshScreen();
+                        SwinGame.Delay(100);
+
+                        SwinGame.FillRectangle(flashColor, 0, 0, 800, 600);
+                        SwinGame.RefreshScreen();
+                        SwinGame.Delay(150);
+
                         break;
                     }
 
