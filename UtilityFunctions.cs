@@ -48,6 +48,8 @@ namespace SpaceBattle
         public const int CELL_GAP = 2;
 
         public const int SHIP_GAP = 0;
+        
+        public static Color MESSAGE_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
 
         private static readonly Color SMALL_SEA = SwinGame.RGBAColor(6, 60, 94, 255);
         private static readonly Color SMALL_SHIP = Color.Gray;
@@ -62,7 +64,6 @@ namespace SpaceBattle
         private static readonly Color OUTLINE_COLOR = SwinGame.RGBAColor(5, 55, 88, 255);
         private static readonly Color SHIP_FILL_COLOR = SwinGame.RGBAColor(128, 128, 128, 10);
         private static readonly Color SHIP_OUTLINE_COLOR = SwinGame.RGBAColor(255, 255, 255, 240);
-        private static readonly Color MESSAGE_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
 
         public const int ANIMATION_CELLS = 7;
         public const int FRAMES_PER_CELL = 8;
