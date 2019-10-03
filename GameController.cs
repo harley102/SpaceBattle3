@@ -194,9 +194,24 @@ namespace SpaceBattle
             isHuman = _theGame.Player == HumanPlayer;
 
             if (isHuman)
-                UtilityFunctions.Instance.Message = "You " + result.ToString();
+            {
+                if(result.Value == ResultOfAttack.Destroyed)
+                {
+                    UtilityFunctions.MESSAGE_COLOR = Color.Green;
+                    UtilityFunctions.Instance.Message = "You " + result.ToString();
+                }else
+                    UtilityFunctions.MESSAGE_COLOR = Color.White;
+                    UtilityFunctions.Instance.Message = "You " + result.ToString();
+            }
             else
-                UtilityFunctions.Instance.Message = "The AI " + result.ToString();
+            {
+                if (result.Value == ResultOfAttack.Destroyed)
+                {
+                    UtilityFunctions.MESSAGE_COLOR = Color.Red;
+                }else
+                    UtilityFunctions.MESSAGE_COLOR = Color.Blue;
+                    UtilityFunctions.Instance.Message = "The AI " + result.ToString();
+            }
 
             switch (result.Value)
             {
