@@ -372,5 +372,47 @@ namespace SpaceBattle
                 GameController.Instance.DrawScreen();
             }
         }
+        
+        public static void DrawDestoyedField(ISeaGrid grid, Player thePlayer)
+        {
+            DrawDestroyedShips(grid, thePlayer, FIELD_LEFT, FIELD_TOP, FIELD_WIDTH, FIELD_HEIGHT, CELL_WIDTH, CELL_HEIGHT, CELL_GAP);
+        }
+
+        private static void DrawDestroyedShips(ISeaGrid grid, Player thePlayer, int left, int top, int width, int height, int cellWidth, int cellHeight, int cellGap)
+        {
+            // SwinGame.FillRectangle(Color.Blue, left, top, width, height)
+
+            int rowTop;
+            int colLeft;
+
+            int shipHeight, shipWidth;
+            string shipName;
+
+            // Draw the ships
+            foreach (Ship s in thePlayer)
+            {
+                if (s == null || !s.IsDestroyed)
+                    continue;
+                rowTop = top + (cellGap + cellHeight) * s.Row + SHIP_GAP;
+                colLeft = left + (cellGap + cellWidth) * s.Column + SHIP_GAP;
+
+                if (s.Direction == Direction.LeftRight)
+                {
+                    shipName = "ShipLR" + s.Size;
+                    shipHeight = cellHeight - (SHIP_GAP * 2);
+                    shipWidth = (cellWidth + cellGap) * s.Size - (SHIP_GAP * 2) - cellGap;
+                }
+                else
+                {
+                    // Up down
+                    shipName = "ShipUD" + s.Size;
+                    shipHeight = (cellHeight + cellGap) * s.Size - (SHIP_GAP * 2) - cellGap;
+                    shipWidth = cellWidth - (SHIP_GAP * 2);
+                }
+
+                SwinGame.DrawBitmap(GameResources.Instance.GameImage(shipName), colLeft, rowTop);
+
+            }
+        }
     }
 }

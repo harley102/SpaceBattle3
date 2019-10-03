@@ -73,6 +73,7 @@ namespace SpaceBattle
                 UtilityFunctions.DrawField(GameController.Instance.HumanPlayer.EnemyGrid, GameController.Instance.ComputerPlayer, false);
 
             UtilityFunctions.DrawSmallField(GameController.Instance.HumanPlayer.PlayerGrid, GameController.Instance.HumanPlayer);
+            UtilityFunctions.DrawDestoyedField(GameController.Instance.ComputerPlayer.PlayerGrid, GameController.Instance.ComputerPlayer);
             UtilityFunctions.Instance.DrawMessage();
 
             SwinGame.DrawText(GameController.Instance.HumanPlayer.Shots.ToString(), Color.White, GameResources.Instance.GameFont("Menu"), SCORES_LEFT, SHOTS_TOP);
