@@ -322,6 +322,27 @@ namespace SpaceBattle
             {
                 case ResultOfAttack.Miss:
                     {
+                        Rectangle toDraw = new Rectangle();
+                        string whatShouldIPrint;
+
+                        //UtilityFunctions.DrawField(GameController.Instance.ComputerPlayer.PlayerGrid, GameController.Instance.ComputerPlayer, true);
+
+                        toDraw.X = 0;
+                        toDraw.Y = 250;
+                        toDraw.Width = SwinGame.ScreenWidth();
+                        toDraw.Height = SwinGame.ScreenHeight();
+
+                        if (_theGame.Player == HumanPlayer)
+                            whatShouldIPrint = "Your turn";
+                        else
+                            whatShouldIPrint = "AIs turn";
+
+                        SwinGame.DrawText(whatShouldIPrint, Color.White, Color.Transparent, GameResources.Instance.GameFont("ArialLarge"), FontAlignment.AlignCenter, toDraw); // orignialy draw text lines
+
+
+
+                        SwinGame.RefreshScreen();
+                        SwinGame.Delay(1000);
                         if (_theGame.Player == ComputerPlayer)
                             AIAttack();
                         break;
